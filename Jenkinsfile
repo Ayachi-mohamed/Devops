@@ -22,13 +22,13 @@ pipeline {
         stage ("image build") {
             steps {
                 echo 'building docker image'
-                sh "docker build -t houssemtebai/position-simulator:${commit_id} ."
+                sh "docker build -t Ayachi-mohamed/position-simulator:${commit_id} ."
                 echo 'docker image built'
             }
         }
         stage ('Image Push') {
             steps {
-                sh "docker push houssemtebai/position-simulator:${commit_id}"
+                sh "docker push Ayachi-mohamed/position-simulator:${commit_id}"
             }
         }
         stage('deploy') {
