@@ -22,18 +22,18 @@ pipeline {
         stage ("image build") {
             steps {
                 echo 'building docker image'
-                sh "docker build -t mohamedayachi/position-simulator:${commit_id} ."
+                sh "docker build -t localhost:5000/position-simulator:${commit_id} ."
                 echo 'docker image built'
             }
         }
         stage ('Image Push') {
             steps {
-                sh "docker push mohamedayachi/position-simulator:${commit_id}"
+                sh "docker push localhost:5000/position-simulator:${commit_id}"
             }
         }
         stage('deploy') {
             steps {
-                sh "sed -i -r 's|richardchesterwood/k8s-fleetman-position-simulator:release2|mohamedayachi/position-simulator:${commit_id}|' workloads.yaml"
+                sh "sed -i -r 's|richardchesterwood/k8s-fleetman-position-simulator:release2|localhost:5000/position-simulator:${commit_id}|' workloads.yaml"
                 sh 'kubectl apply -f workloads.yaml'
             }
         }
