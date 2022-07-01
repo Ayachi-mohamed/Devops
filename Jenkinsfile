@@ -18,6 +18,17 @@ pipeline {
                 echo 'build complete'
             }
         }
+        stage ('Code Quality') {
+            steps {
+                echo 'testing code quality'
+               sh "mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=ProjetDevops \
+                        -Dsonar.host.url=http://192.168.23.136:9000 \
+                        -Dsonar.login=squ_2fbe997a915cafc378433c4695f81edffcfa1012"
+
+                echo 'Quality Test Complete'
+            }        
+        } 
 
         stage ("image build") {
             steps {
